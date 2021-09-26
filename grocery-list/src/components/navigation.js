@@ -42,7 +42,7 @@ const NavLink = ({onClick, children}) => (
 const Navigation = () => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const history = useHistory();
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const color = useColorModeValue('gray.100', 'gray.900');
 
     const navigateTo = (url) => () => {
