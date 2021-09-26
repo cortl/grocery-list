@@ -7,7 +7,7 @@ import {signInWithGoogle} from '../utils/auth-providers';
 
 const LoginPage = () => {
     const history = useHistory();
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
 
     if (user) {
         history.push('/')

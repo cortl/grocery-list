@@ -1,8 +1,8 @@
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import {auth, user} from './firebase';
 
 import {GroceryPage} from './pages/grocery'
 import {LoginPage} from './pages/login';
+import {SettingsPage} from './pages/settings';
 
 const App = () => {
   return (
@@ -10,6 +10,9 @@ const App = () => {
       <Switch>
         <Route path='/login'>
           <LoginPage />
+        </Route>
+        <Route path='/settings'>
+          <SettingsPage />
         </Route>
         <Route path='/'>
           <GroceryPage />

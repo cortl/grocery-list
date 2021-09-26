@@ -14,4 +14,8 @@ const signInWithGoogle = async () => {
     }
 }
 
-export {signInWithGoogle}
+const signOut = async () => {
+    await auth.signOut();
+}
+
+export {signInWithGoogle, signOut}
