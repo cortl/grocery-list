@@ -18,7 +18,7 @@
 
 ## 🚀 Usage
 
-Running over at [https://groceries.cortlan.co](https://groceries.cortlan.co)
+Running over at [https://groceries.cortlan.dev](https://groceries.cortlan.dev)
 
 ## 🔧 Getting Started
 1. [Configuring Firebase](#configuring-firebase)
@@ -26,7 +26,7 @@ Running over at [https://groceries.cortlan.co](https://groceries.cortlan.co)
 
 ### Configuring Firebase
 - [Create a new project](https://console.firebase.google.com)
-- Go to Authentication page and get ApiKey, SenderId, etc. and copy them into a .env file in the cloned project directory
+- Go to "Project Settings" and make sure you're on the "General" tab and get ApiKey, SenderId, etc. and copy them into a .env file in the cloned project directory
 
 ```dotenv
 # Running Prod
