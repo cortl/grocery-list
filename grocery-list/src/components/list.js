@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {UserContext} from '../contexts/user';
 
 import {useGroceryList} from '../hooks/grocery-list-hooks';
 import {groupItemsByCategory} from '../utils/category';
@@ -7,7 +8,8 @@ import {Category} from './category';
 import {Loading} from './loading';
 
 
-const List = ({userId}) => {
+const List = () => {
+    const userId = useContext(UserContext)
     const [items, loading] = useGroceryList(userId);
 
     if (loading) {

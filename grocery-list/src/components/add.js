@@ -1,14 +1,16 @@
-import {useEffect, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import {Button} from "@chakra-ui/button"
 import {Input} from "@chakra-ui/input"
 import {HStack} from "@chakra-ui/layout"
 import {FormControl, FormErrorMessage} from "@chakra-ui/form-control";
 
 import {useAddItem} from "../hooks/grocery-list-hooks";
+import {UserContext} from "../contexts/user";
 
 const LIMIT = 40;
 
-const AddItem = ({userId}) => {
+const AddItem = () => {
+    const userId = useContext(UserContext)
     const [loading, addItem] = useAddItem(userId);
     const [error, setError] = useState(false);
     const [value, setValue] = useState('');

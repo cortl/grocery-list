@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {collection, where, query, getDocs, addDoc} from 'firebase/firestore'
+import {collection, where, query, getDocs, addDoc, deleteDoc, doc, getDoc, setDoc} from 'firebase/firestore'
 
 import {firestore} from '../firebase';
 import {meshAssociations} from '../utils/mesh';
@@ -63,4 +63,28 @@ const useAddItem = (userId) => {
     return [loading, addItem]
 }
 
-export {useGroceryList, useAddItem}
+const useActions = (userId, itemId, categoryId) => {
+    const removeItem = async () => {
+        await deleteDoc(doc(firestore, 'items', itemId))
+    }
+    const changeCategory = async (newCategory) => {
+        if (categoryId) {
+            await setDoc(doc(firestore, 'associations', categoryId), {
+                category: newCategory
+            }, {merge: true})
+        } else {
+            const existingItem = (await getDoc(doc(firestore, 'items', itemId))).data()
+            console.log(existingItem);
+            await addDoc(collection(firestore, 'associations'), {
+                category: newCategory,
+                userId,
+                name: existingItem.name
+            })
+        }
+    }
+
+
+    return [removeItem, changeCategory]
+}
+
+export {useGroceryList, useAddItem, useActions}

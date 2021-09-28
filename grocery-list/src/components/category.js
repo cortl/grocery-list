@@ -13,7 +13,7 @@ const Category = ({name, items}) => {
             </Stack >
 
             <List p='4' spacing='3'>
-                {items.map(item => <Item key={item.name} item={item} />)}
+                {items.map((item, i) => <Item key={`${item.name}${i}`} item={item} />)}
             </List>
         </Stack >
     )
