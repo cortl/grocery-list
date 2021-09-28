@@ -6,9 +6,7 @@ const signInWithGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
 
     try {
-        const result = await signInWithPopup(auth, googleProvider);
-
-        console.log(result);
+        await signInWithPopup(auth, googleProvider);
     } catch (error) {
         console.error(error);
     }

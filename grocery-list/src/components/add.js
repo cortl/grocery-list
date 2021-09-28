@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react"
+import {useCallback, useContext, useEffect, useState} from "react"
 import {Button} from "@chakra-ui/button"
 import {Input} from "@chakra-ui/input"
 import {HStack} from "@chakra-ui/layout"
@@ -15,7 +15,7 @@ const AddItem = () => {
     const [error, setError] = useState(false);
     const [value, setValue] = useState('');
 
-    const validate = () => {
+    const validate = useCallback(() => {
         if (!value) {
             setError(null)
             return false;
@@ -28,11 +28,11 @@ const AddItem = () => {
 
         setError(null);
         return true;
-    }
+    }, [value]);
 
     useEffect(() => {
         validate()
-    }, [value])
+    }, [value, validate])
 
     const submit = () => {
         const result = validate();

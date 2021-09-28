@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {collection, where, query, getDocs, addDoc, deleteDoc, doc, getDoc, setDoc} from 'firebase/firestore'
+import {collection, where, query, addDoc, deleteDoc, doc, getDoc, setDoc, onSnapshot} from 'firebase/firestore'
 
 import {firestore} from '../firebase';
 import {meshAssociations} from '../utils/mesh';
@@ -11,34 +11,38 @@ const useGroceryList = (userId) => {
     const [itemsLoading, setItemsLoading] = useState(true);
     const [associationsLoading, setAssociationsLoading] = useState(true);
 
-    useEffect(async () => {
+    useEffect(() => {
         const q = query(collection(firestore, 'items'), where("userId", "==", userId));
 
-        const querySnap = await getDocs(q);
+        const unsub = onSnapshot(q, querySnap => {
+            const fetched = []
+            querySnap.forEach(doc => {
+                fetched.push({itemId: doc.id, ...doc.data()})
+            });
+            setItems(fetched)
+            setItemsLoading(false);
+        });
 
-        const fetched = []
-        querySnap.forEach(doc => {
-            fetched.push({itemId: doc.id, ...doc.data()})
-        })
+        return unsub;
 
-        setItems(fetched)
-        setItemsLoading(false);
-    }, []);
+    }, [userId])
 
-
-    useEffect(async () => {
+    useEffect(() => {
         const q = query(collection(firestore, 'associations'), where("userId", "==", userId));
 
-        const querySnap = await getDocs(q);
+        const unsub = onSnapshot(q, querySnap => {
+            const fetched = []
+            querySnap.forEach(doc => {
+                fetched.push({categoryId: doc.id, ...doc.data()})
+            })
 
-        const fetched = []
-        querySnap.forEach(doc => {
-            fetched.push({categoryId: doc.id, ...doc.data()})
-        })
+            setAssociations(fetched)
+            setAssociationsLoading(false);
+        });
 
-        setAssociations(fetched)
-        setAssociationsLoading(false);
-    }, []);
+        return unsub;
+
+    }, [userId])
 
     useEffect(() => {
         const result = meshAssociations(items, associations)
@@ -74,7 +78,6 @@ const useActions = (userId, itemId, categoryId) => {
             }, {merge: true})
         } else {
             const existingItem = (await getDoc(doc(firestore, 'items', itemId))).data()
-            console.log(existingItem);
             await addDoc(collection(firestore, 'associations'), {
                 category: newCategory,
                 userId,

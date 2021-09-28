@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {IconButton, Menu, MenuButton, MenuList, Flex, Spacer, MenuItem} from "@chakra-ui/react";
+import {IconButton, Menu, MenuButton, MenuList, MenuItem} from "@chakra-ui/react";
 import {FiTrash, FiTag} from 'react-icons/fi'
 
 import {CATEGORIES} from "../constants/categories";

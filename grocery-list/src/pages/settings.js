@@ -11,6 +11,8 @@ const SettingsPage = () => {
 
     if (!user) {
         history.push('/login')
+
+        return <></>
     }
 
     return (
