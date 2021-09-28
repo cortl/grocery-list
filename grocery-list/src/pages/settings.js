@@ -1,9 +1,12 @@
 import React from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useHistory} from 'react-router-dom';
+import {Container, Heading} from '@chakra-ui/react'
 
 import {Navigation} from '../components/navigation';
 import {auth} from '../firebase';
+import {UserContext} from '../contexts/user';
+import {Statistics} from '../components/stats';
 
 const SettingsPage = () => {
     const history = useHistory();
@@ -18,7 +21,12 @@ const SettingsPage = () => {
     return (
         <>
             <Navigation />
-            <h1>{'Settings Page'}</h1>
+            <UserContext.Provider value={user.uid}>
+                <Container maxW="container.md">
+                    <Heading pt='4' pb='4'>{'Settings'}</Heading>
+                    <Statistics />
+                </Container>
+            </UserContext.Provider>
         </>
     )
 }
