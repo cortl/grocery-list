@@ -7,6 +7,7 @@ import {Navigation} from '../components/navigation';
 import {auth} from '../firebase';
 import {UserContext} from '../contexts/user';
 import {Statistics} from '../components/stats';
+import {Sharing} from '../components/sharing';
 
 const SettingsPage = () => {
     const history = useHistory();
@@ -25,6 +26,7 @@ const SettingsPage = () => {
                 <Container maxW="container.md">
                     <Heading pt='4' pb='4'>{'Settings'}</Heading>
                     <Statistics />
+                    <Sharing />
                 </Container>
             </UserContext.Provider>
         </>
