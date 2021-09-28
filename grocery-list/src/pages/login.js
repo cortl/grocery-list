@@ -1,13 +1,14 @@
 import React from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useHistory} from 'react-router';
-import {Spinner, Container, Image, Center, Box, Text, VStack, Button, Stack} from "@chakra-ui/react"
+import {Container, Image, Center, Box, Text, VStack, Button, Stack} from "@chakra-ui/react"
 import {FcGoogle} from 'react-icons/fc';
 import {FaFacebook} from 'react-icons/fa';
 
 import {auth} from '../firebase';
 import Logo from '../media/logo.png'
 import {signInWithGoogle} from '../utils/auth-providers';
+import {Loading} from '../components/loading';
 
 const LoginPage = () => {
     const history = useHistory();
@@ -18,7 +19,7 @@ const LoginPage = () => {
     }
 
     if (loading) {
-        <Spinner />
+        <Loading />
     }
 
     return (
