@@ -5,7 +5,7 @@ import {Spinner} from '@chakra-ui/spinner';
 const Loading = () => (
     <Container>
         <Center>
-            <Spinner pt='8' />
+            <Spinner m='8' />
         </Center>
     </Container>
 )

@@ -49,7 +49,7 @@ const Navigation = () => {
         history.push(url);
     }
 
-    if (loading) {
+    if (!user || loading) {
         return <h1>{'Loading'}</h1>
     }
 
