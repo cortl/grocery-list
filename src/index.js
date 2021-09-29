@@ -1,31 +1,21 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'react-redux';
-import {compose, createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
-import {reduxFirestore, getFirestore} from 'redux-firestore';
-import {reactReduxFirebase, getFirebase} from 'react-redux-firebase';
+import ReactDOM from 'react-dom';
+import {ChakraProvider} from '@chakra-ui/react';
 
-import * as serviceWorker from './serviceWorker';
-import fbConfig from './config/fbConfig';
-import rootReducer from './reducers';
-import App from './components/app';
+import './styles/index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer,
-    composeEnhancer(
-        applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
-        reactReduxFirebase(fbConfig),
-        reduxFirestore(fbConfig)
-    )
+ReactDOM.render(
+  <React.StrictMode>
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
-render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
-);
-
-serviceWorker.register();
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

@@ -6,7 +6,6 @@
   "env": {
     "browser": true,
     "es6": true,
-    "mocha": true,
     "node": true
   },
   "parser": "babel-eslint",
@@ -151,6 +150,18 @@
     "semi": [
       "error",
       "always"
-    ]
-  }
+    ],
+    "react/prop-types": 0
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.js",
+        "**/*.test.jsx"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }
