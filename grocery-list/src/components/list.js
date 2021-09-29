@@ -1,3 +1,4 @@
+import {Text} from '@chakra-ui/layout';
 import React, {useContext} from 'react';
 import {UserContext} from '../contexts/user';
 
@@ -19,6 +20,10 @@ const List = () => {
     }
 
     const categories = groupItemsByCategory(items);
+
+    if (!categories.length) {
+        return <Text pb='4'>{'Try adding your first item below! 😁'}</Text>
+    }
 
     return (
         <>
