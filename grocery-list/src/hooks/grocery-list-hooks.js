@@ -105,6 +105,7 @@ const useActions = (userId, itemId, categoryId) => {
             }, {merge: true})
         } else {
             const existingItem = (await getDoc(doc(firestore, 'items', itemId))).data()
+
             await addDoc(collection(firestore, 'associations'), {
                 category: newCategory,
                 userId,

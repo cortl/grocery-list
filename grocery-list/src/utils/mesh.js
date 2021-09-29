@@ -5,13 +5,13 @@ const meshAssociations = (items, associations) => {
 
         const mappedItem = association
             ? {
-                itemId: item.itemId,
+                itemId: item.id,
                 name: item.name,
                 category: association.category,
                 categoryId: association.id
             }
             : {
-                itemId: item.itemId,
+                itemId: item.id,
                 name: item.name,
                 category: 'None'
             }
