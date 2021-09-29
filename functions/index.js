@@ -1,30 +1,33 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const nodemailer = require('nodemailer');
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
 
 admin.initializeApp();
 admin.firestore().settings({timestampsInSnapshots: true});
 const firestore = admin.firestore();
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: functions.config().mail.user,
-        pass: functions.config().mail.pass
-    }
+  service: "gmail",
+  auth: {
+    user: functions.config().mail.user,
+    pass: functions.config().mail.pass,
+  },
 });
 
 exports.incrementTotalItemsUser = functions.firestore
-    .document('items/{docId}')
+    .document("items/{docId}")
     .onCreate((docSnap) => {
-        firestore.collection('users')
-            .doc(docSnap.get('userId'))
-            .set({totalItemsAdded: admin.firestore.FieldValue.increment(1)}, {merge: true});
+      return firestore.collection("users")
+          .doc(docSnap.get("userId"))
+          .set(
+              {totalItemsAdded: admin.firestore.FieldValue.increment(1)},
+              {merge: true}
+          );
     });
 
 exports.addUserMetadata = functions.auth.user().onCreate((user) =>
-    firestore.collection('users').doc(user.uid)
-        .set({user: user.displayName, email: user.email, totalItemsAdded: 0}));
+  firestore.collection("users").doc(user.uid)
+      .set({user: user.displayName, email: user.email, totalItemsAdded: 0}));
 
 const buildEmail = (name) => `<html>
 <head>
@@ -63,24 +66,24 @@ const buildEmail = (name) => `<html>
 </html>`;
 
 exports.sendInviteEmail = functions.firestore
-    .document('shares/{docId}')
+    .document("shares/{docId}")
     .onCreate((docSnap) => {
-        const mailOptions = {
-            from: `Cortlan <${functions.config().mail.user}@gmail.com>`,
-            to: docSnap.get('requestedEmail'),
-            subject: 'You\'ve been invited to view to groceries.cortlan.dev',
-            html: buildEmail(docSnap.get('senderName'))
-        };
+      const mailOptions = {
+        from: `Cortlan <${functions.config().mail.user}@gmail.com>`,
+        to: docSnap.get("requestedEmail"),
+        subject: "You've been invited to view to groceries.cortlan.dev",
+        html: buildEmail(docSnap.get("senderName")),
+      };
 
-        console.log('Sending email');
+      console.log("Sending email");
 
-        transporter.sendMail(mailOptions, (error, _info) => {
-            console.log('Sent email');
-            if (error) {
-                console.error(error.stack);
-                return -1;
-            } else {
-                return 0;
-            }
-        });
+      transporter.sendMail(mailOptions, (error, _info) => {
+        console.log("Sent email");
+        if (error) {
+          console.error(error.stack);
+          return -1;
+        } else {
+          return 0;
+        }
+      });
     });
