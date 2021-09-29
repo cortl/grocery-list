@@ -50,7 +50,7 @@ const Navigation = () => {
     }
 
     if (!user || loading) {
-        return <h1>{'Loading'}</h1>
+        return <></>
     }
 
     const {photoURL} = user;
