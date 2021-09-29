@@ -12,8 +12,8 @@
 </p>
 
 [![CircleCI](https://circleci.com/gh/cortl/grocery-list.svg?style=svg)](https://circleci.com/gh/cortl/grocery-list)
-[![Dependencies](https://img.shields.io/david/cortl/grocery-list.svg)](https://david-dm.org/cortl/grocery-list)
-[![Dev Dependencies](https://img.shields.io/david/dev/cortl/grocery-list.svg)](https://david-dm.org/cortl/grocery-list?type=dev)
+[![Dependencies](https://img.shields.io/david/cortl/grocery-list.svg)](https://david-dm.org/cortl/grocery-list.svg)
+[![Dev Dependencies](https://img.shields.io/david/dev/cortl/grocery-list.svg)](https://david-dm.org/cortl/grocery-list.svg?type=dev)
 [![License](https://img.shields.io/github/license/cortl/grocery-list.svg)](/LICENSE)
 
 ## 🚀 Usage
