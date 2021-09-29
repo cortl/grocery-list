@@ -3,6 +3,7 @@ import {collection, where, query, addDoc, doc, deleteDoc, getDocs, getDoc, setDo
 
 import {auth, firestore} from '../firebase';
 import {useAuthState} from 'react-firebase-hooks/auth';
+import {getDocumentsFromQuerySnap} from '../utils/query';
 
 const useStatistics = (userId) => {
     const [totalItems, setTotalItems] = useState(0);
@@ -43,10 +44,8 @@ const useSharing = (userId, email) => {
         const q = query(collection(firestore, 'shares'), where('requestedEmail', '==', email));
 
         const unsub = onSnapshot(q, querySnap => {
-            const fetched = [];
-            querySnap.forEach(doc => {
-                fetched.push({id: doc.id, ...doc.data()})
-            });
+            const fetched = getDocumentsFromQuerySnap(querySnap);
+
             setOtherDocs(fetched)
         });
 
@@ -57,10 +56,7 @@ const useSharing = (userId, email) => {
         const q = query(collection(firestore, 'shares'), where('senderId', '==', userId));
 
         const unsub = onSnapshot(q, querySnap => {
-            const fetched = [];
-            querySnap.forEach(doc => {
-                fetched.push({id: doc.id, ...doc.data()})
-            });
+            const fetched = getDocumentsFromQuerySnap(querySnap);
             setMyDocs(fetched)
         });
 

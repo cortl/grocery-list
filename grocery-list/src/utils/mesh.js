@@ -8,7 +8,7 @@ const meshAssociations = (items, associations) => {
                 itemId: item.itemId,
                 name: item.name,
                 category: association.category,
-                categoryId: association.categoryId
+                categoryId: association.id
             }
             : {
                 itemId: item.itemId,

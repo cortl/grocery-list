@@ -8,7 +8,7 @@ const Item = ({item}) => {
 
     return (
         <ItemContext.Provider value={item}>
-            <ListItem>
+            <ListItem pt='2'>
                 <Flex>
                     <Box >
                         <Text>{name}</Text>

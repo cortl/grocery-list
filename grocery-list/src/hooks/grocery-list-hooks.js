@@ -3,38 +3,65 @@ import {collection, where, query, addDoc, deleteDoc, doc, getDoc, setDoc, onSnap
 
 import {firestore} from '../firebase';
 import {meshAssociations} from '../utils/mesh';
+import {getDocumentsFromCollectionOnce, getDocumentsFromQuerySnap} from '../utils/query';
+
+const getIdsFromShares = async (userId) => {
+    const [otherShares, myShares] = await Promise.all([
+        getDocumentsFromCollectionOnce('shares', where('requestedId', '==', userId)),
+        getDocumentsFromCollectionOnce('shares', where('senderId', '==', userId))
+    ])
+
+    const shares = [
+        ...otherShares.map(doc => doc.senderId),
+        ...myShares.map(doc => doc.requestedId).filter(Boolean),
+        userId
+    ];
+
+    return shares;
+}
 
 const useGroceryList = (userId) => {
-    const [items, setItems] = useState([])
-    const [associations, setAssociations] = useState([])
-    const [result, setResult] = useState([]);
+    const [items, setItems] = useState([]);
     const [itemsLoading, setItemsLoading] = useState(true);
+
+    const [associations, setAssociations] = useState([])
     const [associationsLoading, setAssociationsLoading] = useState(true);
 
-    useEffect(() => {
-        const q = query(collection(firestore, 'items'), where("userId", "==", userId));
+    const [result, setResult] = useState([]);
 
-        const unsub = onSnapshot(q, querySnap => {
-            const fetched = []
-            querySnap.forEach(doc => {
-                fetched.push({itemId: doc.id, ...doc.data()})
+    const [ids, setIds] = useState([]);
+
+    useEffect(() => {
+        let unsub = () => { };
+
+        if (ids.length) {
+            const q = query(collection(firestore, 'items'), where("userId", "in", ids));
+
+            unsub = onSnapshot(q, querySnap => {
+                const fetched = getDocumentsFromQuerySnap(querySnap);
+
+                setItems(fetched)
+                setItemsLoading(false);
             });
-            setItems(fetched)
-            setItemsLoading(false);
-        });
+        }
 
         return unsub;
 
+    }, [ids])
+
+    useEffect(() => {
+        const getIds = async () => {
+            const results = await getIdsFromShares(userId);
+            setIds(results)
+        }
+        getIds();
     }, [userId])
 
     useEffect(() => {
         const q = query(collection(firestore, 'associations'), where("userId", "==", userId));
 
         const unsub = onSnapshot(q, querySnap => {
-            const fetched = []
-            querySnap.forEach(doc => {
-                fetched.push({categoryId: doc.id, ...doc.data()})
-            })
+            const fetched = getDocumentsFromQuerySnap(querySnap);
 
             setAssociations(fetched)
             setAssociationsLoading(false);
