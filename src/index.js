@@ -2,14 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {ChakraProvider} from '@chakra-ui/react';
 
+import * as serviceWorker from "./serviceWorker";
 import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-navigator.serviceWorker.getRegistrations().then((registrations) => {
- for(const registration of registrations) {
-  registration.unregister();
-} });
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,3 +20,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+serviceWorker.register();
