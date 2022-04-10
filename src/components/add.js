@@ -64,7 +64,7 @@ const AddItem = () => {
   );
 
   return (
-    <HStack>
+    <HStack mb='5'>
       <FormControl isInvalid={Boolean(error)}>
         <Input
           errorBorderColor='crimson'
