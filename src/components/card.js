@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Stack, Text} from '@chakra-ui/layout';
+import {Box, Stack, Text} from '@chakra-ui/react';
 
 const Card = ({children}) => {
     return (

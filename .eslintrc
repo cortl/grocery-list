@@ -1,5 +1,7 @@
 {
   "extends": [
+    "react-app",
+    "react-app/jest",
     "eslint:recommended",
     "plugin:react/recommended"
   ],
@@ -8,7 +10,7 @@
     "es6": true,
     "node": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
@@ -22,9 +24,7 @@
       "version": "16.8.6"
     }
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "rules": {
     "array-bracket-newline": [
       "error",
@@ -32,24 +32,15 @@
         "multiline": true
       }
     ],
-    "array-bracket-spacing": [
-      "error",
-      "never"
-    ],
+    "array-bracket-spacing": ["error", "never"],
     "camelcase": [
       "error",
       {
         "properties": "always"
       }
     ],
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
-    "complexity": [
-      "error",
-      8
-    ],
+    "comma-dangle": ["error", "never"],
+    "complexity": ["error", 8],
     "eqeqeq": "error",
     "no-extra-bind": "error",
     "no-extra-parens": [
@@ -59,15 +50,9 @@
         "ignoreJSX": "all"
       }
     ],
-    "jsx-quotes": [
-      "error",
-      "prefer-single"
-    ],
+    "jsx-quotes": ["error", "prefer-single"],
     "prefer-const": "error",
-    "quote-props": [
-      "error",
-      "as-needed"
-    ],
+    "quote-props": ["error", "as-needed"],
     "no-use-before-define": [
       "error",
       {
@@ -76,17 +61,12 @@
         "variables": true
       }
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": ["error", "single"],
     "react/display-name": 0,
     "react/forbid-component-props": [
       "error",
       {
-        "forbid": [
-          "id",
-        ]
+        "forbid": ["id"]
       }
     ],
     "react/jsx-boolean-value": "error",
@@ -111,10 +91,7 @@
         "allow": "single-child"
       }
     ],
-    "react/jsx-fragments": [
-      "error",
-      "syntax"
-    ],
+    "react/jsx-fragments": ["error", "syntax"],
     "react/jsx-pascal-case": "error",
     "react/jsx-props-no-multi-spaces": "error",
     "react/jsx-sort-default-props": "error",
@@ -147,18 +124,12 @@
     "react/no-unused-prop-types": "error",
     "react/no-unused-state": "error",
     "react/prefer-stateless-function": "error",
-    "semi": [
-      "error",
-      "always"
-    ],
+    "semi": ["error", "always"],
     "react/prop-types": 0
   },
   "overrides": [
     {
-      "files": [
-        "**/*.test.js",
-        "**/*.test.jsx"
-      ],
+      "files": ["**/*.test.js", "**/*.test.jsx"],
       "env": {
         "jest": true
       }

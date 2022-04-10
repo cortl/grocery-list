@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Container, Heading} from '@chakra-ui/react';
 
 import {Navigation} from '../components/navigation';
@@ -11,11 +11,11 @@ import {auth} from '../firebase';
 import {UserContext} from '../contexts/user';
 
 const GroceryPage = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [user] = useAuthState(auth);
 
     if (!user?.uid) {
-        history.push('/login');
+        navigate('/login');
 
         return (<></>);
     }

@@ -1,6 +1,5 @@
 import React from 'react';
-import {Center, Container} from '@chakra-ui/layout';
-import {Spinner} from '@chakra-ui/spinner';
+import {Center, Container, Spinner} from '@chakra-ui/react';
 
 const Loading = () => (
     <Container>

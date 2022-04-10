@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     Box,
     Flex,
@@ -23,7 +23,7 @@ import {useAuthState} from 'react-firebase-hooks/auth';
 import {auth} from '../firebase';
 import Logo from '../media/logo.png';
 import {signOut} from '../utils/auth-providers';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const NavLink = ({onClick, children}) => (
     <Link
@@ -41,13 +41,18 @@ const NavLink = ({onClick, children}) => (
 
 const Navigation = () => {
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [user, loading] = useAuthState(auth);
     const color = useColorModeValue('gray.100', 'gray.900');
 
     const navigateTo = (url) => () => {
-        history.push(url);
+        navigate(url);
     };
+
+    const logOut = useCallback(() => {
+        navigate('/');
+        signOut();
+    }, [navigate]);
 
     if (!user || loading) {
         return <></>;
@@ -91,7 +96,7 @@ const Navigation = () => {
                             <MenuList>
                                 <MenuItem onClick={navigateTo('/settings')}>{'Settings'}</MenuItem>
                                 <MenuDivider />
-                                <MenuItem onClick={signOut}>{'Sign out'}</MenuItem>
+                                <MenuItem onClick={logOut}>{'Sign out'}</MenuItem>
                             </MenuList>
                         </Menu>
                     </Flex>

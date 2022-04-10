@@ -1,4 +1,4 @@
-import {Text} from '@chakra-ui/layout';
+import {Text} from '@chakra-ui/react';
 import React, {useContext} from 'react';
 import {UserContext} from '../contexts/user';
 
