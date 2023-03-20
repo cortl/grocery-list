@@ -1,0 +1,55 @@
+name: Build & Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  verify-code:
+    name: Verify & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: "npm"
+          node-version: 16
+      - name: npm install
+        run: |
+          npm i
+      - name: Verify code
+        run: |
+          npm run lint
+      - name: Create env file
+        run: |
+          cat << EOF > .env
+          REACT_APP_API_KEY=${{ secrets.API_KEY }}
+          REACT_APP_AUTH_DOMAIN=https://recipes.cortlan.dev
+          REACT_APP_DATABASE_URL=${{ secrets.DATABASE_URL }}
+          REACT_APP_PROJECT_ID=${{ secrets.PROJECT_ID }}
+          REACT_APP_STORAGE_BUCKET=${{ secrets.STORAGE_BUCKET }}
+          REACT_APP_MESSAGING_SENDER_ID=${{ secrets.MESSAGING_SENDER_ID }}
+          EOF
+      - name: Build react bundle
+        run: |
+          npm run build
+      - name: Save build
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
+          retention-days: 1
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Retrieve build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GROCERY_LIST_73AFE }}'
+          projectId: grocery-list-73afe
