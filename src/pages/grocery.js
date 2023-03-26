@@ -14,9 +14,13 @@ const GroceryPage = () => {
     const navigate = useNavigate();
     const [user] = useAuthState(auth);
 
-    if (!user?.uid) {
-        navigate('/login');
+    React.useEffect(() => {
+        if (!user?.uid) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
 
+    if (!user?.uid) {
         return (<></>);
     }
 

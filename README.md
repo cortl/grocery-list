@@ -21,8 +21,10 @@
 Running over at [https://groceries.cortlan.dev](https://groceries.cortlan.dev)
 
 ## 🔧 Getting Started
-1. [Configuring Firebase](#configuring-firebase)
-2. [Setting up your local environment](#setting-up-your-local-environment)
+- [🚀 Usage](#-usage)
+- [🔧 Getting Started](#-getting-started)
+  - [Configuring Firebase](#configuring-firebase)
+  - [💻  Setting up your local environment](#--setting-up-your-local-environment)
 
 ### Configuring Firebase
 - [Create a new project](https://console.firebase.google.com)
@@ -36,14 +38,7 @@ REACT_APP_DATABASE_URL="<your-data-base-url>"
 REACT_APP_PROJECT_ID="<your-project-id>"
 REACT_APP_STORAGE_BUCKET="<your-storage-bucket-url>"
 REACT_APP_MESSAGING_SENDER_ID="<your-sender-id>"
-
-# Running Local
-REACT_APP_API_KEY_DEV="<your-api-key-here>"
-REACT_APP_AUTH_DOMAIN_DEV="<your-app-domain>"
-REACT_APP_DATABASE_URL_DEV="<your-data-base-url>"
-REACT_APP_PROJECT_ID_DEV="<your-project-id>"
-REACT_APP_STORAGE_BUCKET_DEV="<your-storage-bucket-url>"
-REACT_APP_MESSAGING_SENDER_ID_DEV="<your-sender-id>"
+REACT_APP_APP_ID="<your-app-id>"
 ```
 
 - On the Firebase console authentication page, turn on Google Sign on method

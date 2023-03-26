@@ -23,8 +23,14 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
 
+  React.useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   if (user) {
-    navigate('/');
+    return <></>;
   }
 
   if (loading) {
